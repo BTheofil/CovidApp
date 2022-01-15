@@ -34,10 +34,8 @@ class CountryListFragment : Fragment(R.layout.fragment_country_list) {
     }
 
     private fun subscribeToFlow() {
-
         lifecycleScope.launchWhenStarted {
             viewModel.state.collectLatest { list -> countryListAdapter.submitList(list.countries) }
         }
-
     }
 }
