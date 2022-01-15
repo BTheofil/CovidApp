@@ -7,7 +7,7 @@ import dagger.hilt.components.SingletonComponent
 import hu.tb.covidapp.common.Constants
 import hu.tb.covidapp.data.remote.CovidApi
 import hu.tb.covidapp.data.repository.CovidImpl
-import hu.tb.covidapp.domain.repository.CovidRepository
+import hu.tb.covidapp.domain.repository.CountryRepository
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -28,7 +28,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideCovidRepository(api: CovidApi) : CovidRepository {
+    fun provideCovidRepository(api: CovidApi) : CountryRepository {
         return CovidImpl(api)
     }
 }

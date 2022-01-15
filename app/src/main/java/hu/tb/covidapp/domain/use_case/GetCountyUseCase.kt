@@ -1,22 +1,22 @@
 package hu.tb.covidapp.domain.use_case
 
 import hu.tb.covidapp.common.Resource
-import hu.tb.covidapp.data.remote.dto.toSelectedCountry
-import hu.tb.covidapp.domain.model.SelectedCountry
-import hu.tb.covidapp.domain.repository.CovidRepository
+import hu.tb.covidapp.data.remote.dto.toCountry
+import hu.tb.covidapp.domain.model.Country
+import hu.tb.covidapp.domain.repository.CountryRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class GetCovidUseCase @Inject constructor(private val repository: CovidRepository) {
+class GetCountyUseCase @Inject constructor(private val repository: CountryRepository) {
 
-    operator fun invoke(countryName: String) : Flow<Resource<List<SelectedCountry>>> = flow {
+    operator fun invoke(countryName: String) : Flow<Resource<Country>> = flow {
         try {
             emit(Resource.Loading())
-            val selectedCountries = repository.getSelectedCountry(countryName).map { it.toSelectedCountry() }
-            emit(Resource.Success(selectedCountries))
+            val selectedCountry = repository.getCountryByName(countryName).toCountry()
+            emit(Resource.Success(selectedCountry))
         } catch (e: HttpException){
             emit(Resource.Error(e.localizedMessage ?: "An unexpected error occurred"))
         } catch (e: IOException) {

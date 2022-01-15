@@ -1,6 +1,6 @@
 package hu.tb.covidapp.domain.model
 
-data class SelectedCountry(
+data class Country(
     val country: String,
     val confirmed: Int,
     val critical: Int,

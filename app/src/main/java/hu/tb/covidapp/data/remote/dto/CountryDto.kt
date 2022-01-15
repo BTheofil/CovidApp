@@ -1,8 +1,8 @@
 package hu.tb.covidapp.data.remote.dto
 
-import hu.tb.covidapp.domain.model.SelectedCountry
+import hu.tb.covidapp.domain.model.Country
 
-data class SelectedCountryDto(
+data class CountryDto(
     val code: String,
     val confirmed: Int,
     val country: String,
@@ -15,8 +15,8 @@ data class SelectedCountryDto(
     val recovered: Int
 )
 
-fun SelectedCountryDto.toSelectedCountry() : SelectedCountry{
-    return SelectedCountry(
+fun CountryDto.toCountry() : Country{
+    return Country(
         country = country,
         confirmed = confirmed,
         critical = critical,

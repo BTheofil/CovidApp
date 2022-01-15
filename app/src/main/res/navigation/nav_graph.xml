@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/countryListFragment">
+    <fragment
+        android:id="@+id/countryListFragment"
+        android:name="hu.tb.covidapp.presentation.countryList.CountryListFragment"
+        android:label="fragment_country_list"
+        tools:layout="@layout/fragment_country_list" >
+        <action
+            android:id="@+id/action_countryListFragment_to_countryFragment"
+            app:destination="@id/countryFragment" />
+        <action
+            android:id="@+id/action_countryListFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/countryFragment"
+        android:name="hu.tb.covidapp.presentation.country.CountryFragment"
+        android:label="fragment_country"
+        tools:layout="@layout/fragment_country" >
+        <action
+            android:id="@+id/action_countryFragment_to_countryListFragment"
+            app:destination="@id/countryListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="hu.tb.covidapp.presentation.settings.SettingsFragment"
+        android:label="SettingsFragment" >
+        <action
+            android:id="@+id/action_settingsFragment_to_countryListFragment"
+            app:destination="@id/countryListFragment" />
+    </fragment>
+</navigation>
