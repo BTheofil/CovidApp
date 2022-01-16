@@ -2,9 +2,10 @@ package hu.tb.covidapp.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import hu.tb.covidapp.data.local.entity.CountryEntity
 
 @Database(
-    entities = [CountryDatabase::class],
+    entities = [CountryEntity::class],
     version = 1
 )
 abstract class CountryDatabase : RoomDatabase() {
