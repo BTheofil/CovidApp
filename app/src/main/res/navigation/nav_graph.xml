@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_countryListFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_countryListFragment_to_countryLookedFragment"
+            app:destination="@id/countryLookedFragment" />
     </fragment>
     <fragment
         android:id="@+id/countryFragment"
@@ -31,6 +34,15 @@
         android:label="SettingsFragment" >
         <action
             android:id="@+id/action_settingsFragment_to_countryListFragment"
+            app:destination="@id/countryListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/countryLookedFragment"
+        android:name="hu.tb.covidapp.presentation.countyLooked.CountryLookedFragment"
+        android:label="fragment_country_looked"
+        tools:layout="@layout/fragment_country_looked" >
+        <action
+            android:id="@+id/action_countryLookedFragment_to_countryListFragment"
             app:destination="@id/countryListFragment" />
     </fragment>
 </navigation>

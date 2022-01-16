@@ -25,10 +25,10 @@ class CountryListViewModel @Inject constructor(private val getCountyAllUseCase: 
         getCountyAllUseCase().onEach { result ->
             when(result){
                 is Resource.Success -> {
-                    _state.value = CountryListState(countries = result.data ?: emptyList())
+                    _state.value = CountryListState(countries = result.data ?: emptyList(), isLoading = false)
                 }
                 is Resource.Error -> {
-                    _state.value = CountryListState(error = result.message ?: " An unexpected error occurred")
+                    _state.value = CountryListState(error = result.message ?: " An unexpected error occurred", isLoading = false)
                 }
                 is Resource.Loading -> {
                     _state.value = CountryListState(isLoading = true)
