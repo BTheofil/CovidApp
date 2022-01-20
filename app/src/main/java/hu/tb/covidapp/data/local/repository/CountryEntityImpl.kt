@@ -1,12 +1,13 @@
 package hu.tb.covidapp.data.local.repository
 
+import android.util.Log
 import hu.tb.covidapp.data.local.CountryDao
 import hu.tb.covidapp.data.local.entity.CountryEntity
 import hu.tb.covidapp.domain.repository.CountryEntityRepository
 import kotlinx.coroutines.flow.Flow
 
 class CountryEntityImpl(private val dao: CountryDao) : CountryEntityRepository{
-    override fun getCounties(): List<CountryEntity> {
+    override fun getCounties(): Flow<List<CountryEntity>> {
         return dao.getCountries()
     }
 
@@ -15,10 +16,11 @@ class CountryEntityImpl(private val dao: CountryDao) : CountryEntityRepository{
     }
 
     override suspend fun insertCountry(countryEntity: CountryEntity) {
-        return dao.insertCountry(countryEntity)
+        Log.d("HERE: ", "Impl")
+        dao.insertCountry(countryEntity)
     }
 
     override suspend fun deleteCountry(countryEntity: CountryEntity) {
-        return dao.deleteCountry(countryEntity)
+        dao.deleteCountry(countryEntity)
     }
 }

@@ -14,7 +14,7 @@ interface CountryDao {
     suspend fun deleteCountry(country: CountryEntity)
 
     @Query("SELECT * FROM countryEntity")
-    fun getCountries(): List<CountryEntity>
+    fun getCountries(): Flow<List<CountryEntity>>
 
     @Query("SELECT * FROM countryEntity WHERE id = :id")
     suspend fun getCountryById(id: Int): CountryEntity?

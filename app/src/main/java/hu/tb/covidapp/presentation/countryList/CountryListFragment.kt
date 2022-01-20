@@ -9,10 +9,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import hu.tb.covidapp.R
 import hu.tb.covidapp.databinding.FragmentCountryListBinding
+import hu.tb.covidapp.domain.model.Country
+import hu.tb.covidapp.domain.util.AddItemClickListener
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
-class CountryListFragment : Fragment(R.layout.fragment_country_list) {
+class CountryListFragment : Fragment(R.layout.fragment_country_list), AddItemClickListener {
 
     private lateinit var countryListAdapter: CountryListAdapter
 
@@ -27,8 +29,12 @@ class CountryListFragment : Fragment(R.layout.fragment_country_list) {
         subscribeToFlow()
     }
 
+    override fun addItemClick(country: Country) {
+        viewModel.insertCountryToDb(country)
+    }
+
     private fun setupRecyclerView() = binding.rvCountries.apply {
-        countryListAdapter = CountryListAdapter()
+        countryListAdapter = CountryListAdapter(this@CountryListFragment)
         adapter = countryListAdapter
         layoutManager = LinearLayoutManager(requireContext())
     }

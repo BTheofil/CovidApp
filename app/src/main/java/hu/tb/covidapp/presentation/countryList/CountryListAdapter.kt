@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import hu.tb.covidapp.databinding.CountryItemBinding
 import hu.tb.covidapp.domain.model.Country
+import hu.tb.covidapp.domain.util.AddItemClickListener
 
-class CountryListAdapter() : RecyclerView.Adapter<CountryListAdapter.CountryListViewHolder>() {
+class CountryListAdapter(private var addItemClickListener: AddItemClickListener) : RecyclerView.Adapter<CountryListAdapter.CountryListViewHolder>() {
 
     inner class CountryListViewHolder(var binding : CountryItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -34,8 +35,10 @@ class CountryListAdapter() : RecyclerView.Adapter<CountryListAdapter.CountryList
         holder.binding.apply {
             countryTitle.text = country.country
             countryRecovered.text = country.recovered.toString()
+            addDbBtn.setOnClickListener {
+                addItemClickListener.addItemClick(differ.currentList[position])
+            }
         }
-
     }
 
     override fun getItemCount(): Int {
