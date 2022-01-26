@@ -1,13 +1,15 @@
 package hu.tb.covidapp.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import hu.tb.covidapp.R
 import hu.tb.covidapp.databinding.ActivityMainBinding
-import hu.tb.covidapp.presentation.countryList.CountryListFragment
-import hu.tb.covidapp.presentation.countyLooked.CountryLookedFragment
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -19,21 +21,19 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val countryListFragment = CountryListFragment()
-        val countryLookedFragment = CountryLookedFragment()
+        val navView: BottomNavigationView = binding.navView
 
-        binding.bottomNavigationView.setOnItemSelectedListener {
-            when(it.itemId){
-                R.id.home -> setCurrentFragment(countryListFragment)
-                R.id.looked -> setCurrentFragment(countryLookedFragment)
-            }
-            true
-        }
+        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.home, R.id.looked, R.id.settings
+            )
+        )
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
     }
 
-    private fun setCurrentFragment(fragment: Fragment) =
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.navHostFragment, fragment)
-            commit()
-        }
+
 }

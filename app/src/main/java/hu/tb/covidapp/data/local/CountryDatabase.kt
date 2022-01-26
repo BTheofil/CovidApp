@@ -6,7 +6,8 @@ import hu.tb.covidapp.data.local.entity.CountryEntity
 
 @Database(
     entities = [CountryEntity::class],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
 abstract class CountryDatabase : RoomDatabase() {
 

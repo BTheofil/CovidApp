@@ -7,9 +7,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import hu.tb.covidapp.common.Resource
 import hu.tb.covidapp.data.local.entity.CountryEntity
 import hu.tb.covidapp.domain.model.Country
-import hu.tb.covidapp.domain.repository.CountryEntityRepository
 import hu.tb.covidapp.domain.use_case.CountryUseCases
 import hu.tb.covidapp.domain.use_case.GetCountryAllUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -44,16 +44,14 @@ class CountryListViewModel @Inject constructor(private val getCountyAllUseCase: 
     }
 
     fun insertCountryToDb(country: Country){
-        Log.d("HERE: ", "VM")
-        viewModelScope.launch {
-            countryUseCases.addCountry.invoke(CountryEntity(
+        viewModelScope.launch(Dispatchers.IO) {
+            countryUseCases.addCountry.addCountry(CountryEntity(
                 country = country.country,
-                confirmed = country.confirmed,
                 critical = country.critical,
-                deaths = country.deaths,
-                recovered = country.recovered
+                confirmed = country.confirmed,
+                recovered = country.recovered,
+                deaths = country.deaths
             ))
         }
-        Log.d("HERE: ", "VM END")
     }
 }

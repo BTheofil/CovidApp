@@ -1,11 +1,11 @@
 package hu.tb.covidapp.domain.repository
 
+import androidx.lifecycle.LiveData
 import hu.tb.covidapp.data.local.entity.CountryEntity
-import kotlinx.coroutines.flow.Flow
 
 interface CountryEntityRepository {
 
-    fun getCounties(): Flow<List<CountryEntity>>
+    fun getCounties(): LiveData<List<CountryEntity>>
 
     suspend fun getCountryById(id: Int): CountryEntity?
 

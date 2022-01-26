@@ -1,8 +1,8 @@
 package hu.tb.covidapp.data.local
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import hu.tb.covidapp.data.local.entity.CountryEntity
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CountryDao {
@@ -14,7 +14,7 @@ interface CountryDao {
     suspend fun deleteCountry(country: CountryEntity)
 
     @Query("SELECT * FROM countryEntity")
-    fun getCountries(): Flow<List<CountryEntity>>
+    fun getCountries(): LiveData<List<CountryEntity>>
 
     @Query("SELECT * FROM countryEntity WHERE id = :id")
     suspend fun getCountryById(id: Int): CountryEntity?
