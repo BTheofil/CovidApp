@@ -2,6 +2,7 @@ package hu.tb.covidapp.presentation.countryList
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -41,7 +42,16 @@ class CountryListFragment : Fragment(R.layout.fragment_country_list), AddItemCli
 
     private fun subscribeToFlow() {
         lifecycleScope.launchWhenStarted {
-            viewModel.state.collectLatest { list -> countryListAdapter.submitList(list.countries) }
+            viewModel.state.collectLatest {
+                when (it) {
+                    is CountryListState.Success -> countryListAdapter.submitList(it.data)
+                    is CountryListState.Error -> {
+                        binding.ivNoConnection.visibility = View.VISIBLE
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                    }
+                    else -> Unit
+                }
+            }
         }
     }
 }

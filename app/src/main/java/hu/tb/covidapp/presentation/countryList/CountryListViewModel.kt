@@ -1,6 +1,5 @@
 package hu.tb.covidapp.presentation.countryList
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,40 +17,46 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CountryListViewModel @Inject constructor(private val getCountyAllUseCase: GetCountryAllUseCase, private val countryUseCases: CountryUseCases) : ViewModel(){
+class CountryListViewModel @Inject constructor(
+    private val getCountyAllUseCase: GetCountryAllUseCase,
+    private val countryUseCases: CountryUseCases,
+) : ViewModel() {
 
-    private val _state = MutableStateFlow(CountryListState())
+    private val _state = MutableStateFlow<CountryListState>(CountryListState.Empty)
     val state: StateFlow<CountryListState> = _state
 
     init {
         getCountries()
     }
 
-    private fun getCountries(){
+    private fun getCountries() {
         getCountyAllUseCase().onEach { result ->
-            when(result){
+            when (result) {
                 is Resource.Success -> {
-                    _state.value = CountryListState(countries = result.data ?: emptyList(), isLoading = false)
+                    _state.value =
+                        CountryListState.Success(result.data!!)
                 }
                 is Resource.Error -> {
-                    _state.value = CountryListState(error = result.message ?: " An unexpected error occurred", isLoading = false)
+                    _state.value = CountryListState.Error(result.message!!)
                 }
                 is Resource.Loading -> {
-                    _state.value = CountryListState(isLoading = true)
+                    _state.value = CountryListState.Loading
                 }
             }
         }.launchIn(viewModelScope)
     }
 
-    fun insertCountryToDb(country: Country){
+    fun insertCountryToDb(country: Country) {
         viewModelScope.launch(Dispatchers.IO) {
-            countryUseCases.addCountry.addCountry(CountryEntity(
-                country = country.country,
-                critical = country.critical,
-                confirmed = country.confirmed,
-                recovered = country.recovered,
-                deaths = country.deaths
-            ))
+            countryUseCases.addCountry.addCountry(
+                CountryEntity(
+                    country = country.country,
+                    critical = country.critical,
+                    confirmed = country.confirmed,
+                    recovered = country.recovered,
+                    deaths = country.deaths
+                )
+            )
         }
     }
 }

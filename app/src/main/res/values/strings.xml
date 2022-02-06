@@ -7,4 +7,5 @@
     <string name="looked">Looked</string>
     <string name="add_country_to_bookmark">Add country to bookmark</string>
     <string name="hello">Hello</string>
+    <string name="noconnection">noConnection</string>
 </resources>

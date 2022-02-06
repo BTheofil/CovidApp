@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Developing/Codeing/Android/CovidApp/app/src/main/res/drawable/ic_baseline_wifi_off_24.xml" value="0.3828125" />
         <entry key="..\:/Developing/Codeing/Android/CovidApp/app/src/main/res/layout/activity_main.xml" value="0.29528985507246375" />
         <entry key="..\:/Developing/Codeing/Android/CovidApp/app/src/main/res/layout/country_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Developing/Codeing/Android/CovidApp/app/src/main/res/layout/fragment_country_list.xml" value="0.36666666666666664" />
