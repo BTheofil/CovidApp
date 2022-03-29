@@ -14,13 +14,13 @@ class GetCountryAllUseCase @Inject constructor(private val repository: CountryRe
 
     operator fun invoke() : Flow<Resource<List<Country>>> = flow {
         try {
-            emit(Resource.Loading())
+            emit(Resource.Loading<List<Country>>())
             val countries = repository.getCountryAll().map { it.toCountry() }
-            emit(Resource.Success(countries))
+            emit(Resource.Success<List<Country>>(countries))
         } catch (e: HttpException){
-            emit(Resource.Error(e.localizedMessage ?: "An unexpected error occurred"))
+            emit(Resource.Error<List<Country>>(e.localizedMessage ?: "An unexpected error occurred"))
         } catch (e: IOException) {
-            emit(Resource.Error("Could not reach server. Check your internet connection"))
+            emit(Resource.Error<List<Country>>("Could not reach server. Check your internet connection"))
         }
     }
 }

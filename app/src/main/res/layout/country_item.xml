@@ -8,6 +8,7 @@
     android:layout_marginTop="16dp"
     android:layout_marginStart="16dp"
     android:layout_marginEnd="16dp"
+    android:layout_marginBottom="16dp"
     android:elevation="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,6 +46,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:contentDescription="@string/add_country_to_bookmark" />
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pieGraph"
+            android:layout_height="50dp"
+            android:layout_width="50dp"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

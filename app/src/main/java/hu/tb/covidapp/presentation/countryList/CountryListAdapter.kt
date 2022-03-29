@@ -13,7 +13,7 @@ class CountryListAdapter(private var addItemClickListener: AddItemClickListener)
 
     inner class CountryListViewHolder(var binding : CountryItemBinding) : RecyclerView.ViewHolder(binding.root)
 
-    val diffCallback = object : DiffUtil.ItemCallback<Country>() {
+    private val diffCallback = object : DiffUtil.ItemCallback<Country>() {
         override fun areItemsTheSame(oldItem: Country, newItem: Country): Boolean {
             return oldItem.country == newItem.country
         }
@@ -23,7 +23,7 @@ class CountryListAdapter(private var addItemClickListener: AddItemClickListener)
         }
     }
 
-    val differ = AsyncListDiffer(this, diffCallback)
+    private val differ = AsyncListDiffer(this, diffCallback)
 
     fun submitList(list: List<Country>) = differ.submitList(list)
 

@@ -15,28 +15,36 @@ import hu.tb.covidapp.databinding.FragmentCountryLookedBinding
 class CountryLookedFragment : Fragment(R.layout.fragment_country_looked) {
 
     private lateinit var countryLookedAdapter: CountryLookedAdapter
-
     private val viewModel: CountryLookedViewModel by viewModels()
-    private lateinit var binding: FragmentCountryLookedBinding
+    private var _binding: FragmentCountryLookedBinding? = null
+    private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewModel.readAllData.observe(viewLifecycleOwner, { country ->
-            countryLookedAdapter.submitList(country)
-        })
-        return super.onCreateView(inflater, container, savedInstanceState)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentCountryLookedBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentCountryLookedBinding.bind(view)
-
+        readLookedCountries()
         setupRecyclerView()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun setupRecyclerView() = binding.rvLookedCountries.apply {
         countryLookedAdapter = CountryLookedAdapter()
         adapter = countryLookedAdapter
         layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    private fun readLookedCountries(){
+        viewModel.readAllData.observe(viewLifecycleOwner, { country ->
+            countryLookedAdapter.submitList(country)
+        })
     }
 
 }
